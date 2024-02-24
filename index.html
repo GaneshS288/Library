@@ -11,19 +11,19 @@
 
 <body>
     <dialog>
-        <form action="">
+        <form action="" method="dialog">
             <div>
-                <lable for="Title">Title:</lable>
+                <lable for="title">Title:</lable>
                 <input type="text" id="title" name="title" required>
             </div>
 
             <div>
                 <lable for="author">Author:</lable>
-                <input type="text" if="author" name="author" required>
+                <input type="text" id="author" name="author" required>
             </div>
 
             <div>
-                <lable for="pageCount"></lable>
+                <lable for="pageCount">Page Count:</lable>
                 <input type="number" id="pageCount" name="pageCount" required>
             </div>
 
@@ -31,8 +31,12 @@
                 <lable for="readStatus">Read</lable>
                 <input type="checkbox" id="readStatus" name="readStatus">
             </div>
+
+            <button type="submit" class="addBook">Add</button>
         </form>
     </dialog>
+
+    <button>Add a Book</button>
 </body>
 
 </html>
