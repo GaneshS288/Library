@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik+Mono+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik+Mono+One&family=Sono:wght@200..800&display=swap');
+
+dialog {
+    max-width: 400px;
+    min-width: 200px;
+    min-height: 150px;
+    max-height: 600px;
+}
+
+form {
+    display: flex;
+    flex-flow: wrap column;
+    gap: 20px;
+}
+
+form > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+}
+
+lable {
+    font : bold 1.2rem Pacifico, roboto;
+}
+
+input {
+    font: 0.8rem Sono, helvetica;
+}
+
+form > button:last-child {
+    font: 1rem "Rubik Mono One";
+    color: white;
+    background-color: black;
+    height: 2rem;
+}
+
+form > div > input[type="checkbox"] {
+    justify-self: start;
+    width: 20px;
+    height: 20px;
+}
