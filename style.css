@@ -31,6 +31,8 @@ main {
     background-color: black;
     color: white;
     font: 1rem "Rubik Mono One";
+    justify-self: end;
+    margin-right: 1rem;
 }
 
 .bookCard > div:nth-child(4) {
