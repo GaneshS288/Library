@@ -16,8 +16,9 @@ addBookButton.addEventListener("click", (e) => {
     const title = document.querySelector("#title").value;
     const author = document.querySelector("#author").value;
     const pageCount = document.querySelector("#pageCount").value;
+    const readStatus = document.querySelector("#readStatus").checked;
 
-    const newBook = new Book(title, author, pageCount, "read");
+    const newBook = new Book(title, author, pageCount, readStatus);
     addBookToLibrary(newBook);
 })
 
@@ -25,7 +26,7 @@ function Book(title, author, pageCount, readStatus) {
         this.title = title,
         this.author = author,
         this.pageCount = pageCount,
-        this.readStatus = readStatus
+        this.readStatus = readStatus ? "Read" : "Not Read";
 }
 
 function addBookToLibrary(book) {
@@ -87,7 +88,7 @@ function deleteBook(event) {
     const index = event.target.parentElement.getAttribute("data-index");
     myLibrary.splice(parseInt(index), 1);
     event.target.parentElement.remove();
-    displayBooks();
+    displayBooks(myLibrary);
 }
 
 displayBooks(myLibrary);
