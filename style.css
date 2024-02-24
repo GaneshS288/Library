@@ -1,11 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik+Mono+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Rubik+Mono+One&family=Sono:wght@200..800&display=swap');
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    text-align: center;
+    font: 1.6rem "Rubik Mono One";
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+.bookCard {
+    border: 5px solid black;
+    display: grid;
+    justify-items: start;
+    align-items: start;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+}
+
+.bookCard > button {
+    background-color: black;
+    color: white;
+    font: 1rem "Rubik Mono One";
+}
+
 dialog {
     max-width: 400px;
     min-width: 200px;
     min-height: 150px;
     max-height: 600px;
+}
+
+dialog + button {
+    font: 1.6rem "Rubik Mono One";
+    align-self: center;
+    background-color: white;
+    margin-top: 1.2rem;
 }
 
 form {
@@ -39,4 +78,13 @@ form > div > input[type="checkbox"] {
     justify-self: start;
     width: 20px;
     height: 20px;
+}
+
+h3 {
+    font: 1.2rem Pacifico;
+    margin: 0;
+}
+
+p {
+    font: 0.8rem Sono;
 }

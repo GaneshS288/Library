@@ -1,12 +1,21 @@
 const dialog = document.querySelector("dialog");
 const showDialogButton = document.querySelector("dialog + button");
 const addBookButton = document.querySelector(".addBook");
+const mainSection = document.querySelector("main");
 
 const myLibrary = [];
 
-const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 269, "Read");
+const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 269, true);
+const swordPrincessAltina = new Book("Sword Princess Altina", "Yukiya Murasaki", 2000, true);
+const braveStory = new Book("Brave Story", "Miyuki Miyabe", 280, false);
+const mistborne = new Book("Mistborne", "Brandon Sanderson", 350, false);
+const hikaruGaChikyuu = new Book("Hikaru ga Chikyuu ni Ita Koro", "Mizuki Nomura", 700, false)
 
 addBookToLibrary(theHobbit);
+addBookToLibrary(swordPrincessAltina);
+addBookToLibrary(braveStory);
+addBookToLibrary(mistborne);
+addBookToLibrary(hikaruGaChikyuu);
 
 showDialogButton.addEventListener("click", (e) => {
     dialog.showModal();
@@ -23,10 +32,14 @@ addBookButton.addEventListener("click", (e) => {
 })
 
 function Book(title, author, pageCount, readStatus) {
-        this.title = title,
+    this.title = title,
         this.author = author,
         this.pageCount = pageCount,
-        this.readStatus = readStatus ? "Read" : "Not Read";
+        this.readStatus = readStatus ? "Read" : "Unread";
+}
+
+Book.prototype.toggleReadStatus = function () {
+    this.readStatus == "Read" ? this.readStatus = "Unread" : this.readStatus = "Read";
 }
 
 function addBookToLibrary(book) {
@@ -70,17 +83,27 @@ function displayBooks(array) {
                     break;
 
                 case 3:
-                    heading.textContent = "Read";
+                    heading.textContent = "Read:";
                     content.textContent = element.readStatus;
+
+                    const toggleReadStatus = document.createElement("button");
+                    toggleReadStatus.textContent = "Toggle";
+                    div.appendChild(toggleReadStatus);
+
+                    toggleReadStatus.addEventListener("click", (event) => {
+                    const index = event.target.parentElement.parentElement.getAttribute("data-index");
+                    myLibrary[parseInt(index)].toggleReadStatus();
+                    displayBooks(myLibrary);
+                    })
             }
         }
 
         const deleteButton = document.createElement("button");
-            deleteButton.addEventListener("click", deleteBook)
-            deleteButton.textContent = "Delete";
-            bookCard.appendChild(deleteButton);
+        deleteButton.addEventListener("click", deleteBook)
+        deleteButton.textContent = "Delete";
+        bookCard.appendChild(deleteButton);
 
-            document.body.appendChild(bookCard);
+        mainSection.appendChild(bookCard);
     });
 }
 
