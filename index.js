@@ -1,11 +1,6 @@
 const dialog = document.querySelector("dialog");
 const showDialogButton = document.querySelector("dialog + button");
-const title = document.querySelector("#title");
-const author = document.querySelector("#author");
-const pageCount = document.querySelector("#pageCount");
 const addBookButton = document.querySelector(".addBook");
-
-
 
 const myLibrary = [];
 
@@ -15,25 +10,84 @@ addBookToLibrary(theHobbit);
 
 showDialogButton.addEventListener("click", (e) => {
     dialog.showModal();
-} )
+})
 
 addBookButton.addEventListener("click", (e) => {
-    const newBook = new Book(title.value, author.value, pageCount.value, "read");
-    myLibrary.push(newBook);
-})
-/*for (let item of myLibrary) {
-    for (let key in item) {
-        console.log(`${key} : ${item[key]}`);
-    }
-}*/
+    const title = document.querySelector("#title").value;
+    const author = document.querySelector("#author").value;
+    const pageCount = document.querySelector("#pageCount").value;
 
-function Book(name, author, pageCount, readStatus) {
-    this.name = name,
-    this.author = author,
-    this.pageCount = pageCount,
-    this.readStatus = readStatus
+    const newBook = new Book(title, author, pageCount, "read");
+    addBookToLibrary(newBook);
+})
+
+function Book(title, author, pageCount, readStatus) {
+        this.title = title,
+        this.author = author,
+        this.pageCount = pageCount,
+        this.readStatus = readStatus
 }
 
 function addBookToLibrary(book) {
- myLibrary.push(book);
+    myLibrary.push(book);
+    displayBooks(myLibrary);
 }
+
+function displayBooks(array) {
+
+    const previousBookCards = document.querySelectorAll(".bookCard");
+    previousBookCards.forEach((e) => e.remove());
+
+    array.forEach((element, index) => {
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("bookCard");
+
+        for (let i = 0; i < 4; i++) {
+            const div = document.createElement("div");
+            bookCard.appendChild(div);
+            bookCard.setAttribute("data-index", `${index}`)
+
+            const heading = document.createElement("h3");
+            const content = document.createElement("p");
+            div.appendChild(heading);
+            div.appendChild(content);
+
+            switch (i) {
+                case 0:
+                    heading.textContent = "Title:";
+                    content.textContent = element.title;
+                    break;
+
+                case 1:
+                    heading.textContent = "Author:";
+                    content.textContent = element.author;
+                    break;
+
+                case 2:
+                    heading.textContent = "Pages:";
+                    content.textContent = element.pageCount;
+                    break;
+
+                case 3:
+                    heading.textContent = "Read";
+                    content.textContent = element.readStatus;
+            }
+        }
+
+        const deleteButton = document.createElement("button");
+            deleteButton.addEventListener("click", deleteBook)
+            deleteButton.textContent = "Delete";
+            bookCard.appendChild(deleteButton);
+
+            document.body.appendChild(bookCard);
+    });
+}
+
+function deleteBook(event) {
+    const index = event.target.parentElement.getAttribute("data-index");
+    myLibrary.splice(parseInt(index), 1);
+    event.target.parentElement.remove();
+    displayBooks();
+}
+
+displayBooks(myLibrary);
