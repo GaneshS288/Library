@@ -22,6 +22,13 @@ class Book {
     toggleReadStatus () {
         this.readStatus == "Read" ? this.readStatus = "Unread" : this.readStatus = "Read";
     }
+
+    deleteBook(event) {
+        const index = event.target.parentElement.getAttribute("data-index");
+        myLibrary.splice(parseInt(index), 1);
+        event.target.parentElement.remove();
+        displayBooks(myLibrary);
+    }
 }
 
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 269, true);
@@ -120,7 +127,7 @@ function displayBooks(array) {
         }
 
         const deleteButton = document.createElement("button");
-        deleteButton.addEventListener("click", deleteBook)
+        deleteButton.addEventListener("click", theHobbit.deleteBook)
         deleteButton.textContent = "Delete";
         bookCard.appendChild(deleteButton);
 
@@ -128,11 +135,11 @@ function displayBooks(array) {
     });
 }
 
-function deleteBook(event) {
+/*function deleteBook(event) {
     const index = event.target.parentElement.getAttribute("data-index");
     myLibrary.splice(parseInt(index), 1);
     event.target.parentElement.remove();
     displayBooks(myLibrary);
-}
+}*/
 
 displayBooks(myLibrary);
