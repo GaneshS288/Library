@@ -6,11 +6,21 @@ const mainSection = document.querySelector("main");
 const myLibrary = [];
 
 class Book {
+
     constructor(title, author, pageCount, readStatus) {
             this.title = title,
             this.author = author,
             this.pageCount = pageCount,
             this.readStatus = readStatus ? "Read" : "Unread";
+    }
+
+    addBookToLibrary(book) {
+        myLibrary.push(book);
+        displayBooks(myLibrary);
+    }
+    
+    toggleReadStatus () {
+        this.readStatus == "Read" ? this.readStatus = "Unread" : this.readStatus = "Read";
     }
 }
 
@@ -20,11 +30,11 @@ const braveStory = new Book("Brave Story", "Miyuki Miyabe", 280, false);
 const mistborne = new Book("Mistborne", "Brandon Sanderson", 350, false);
 const hikaruGaChikyuu = new Book("Hikaru ga Chikyuu ni Ita Koro", "Mizuki Nomura", 700, false)
 
-addBookToLibrary(theHobbit);
-addBookToLibrary(swordPrincessAltina);
-addBookToLibrary(braveStory);
-addBookToLibrary(mistborne);
-addBookToLibrary(hikaruGaChikyuu);
+theHobbit.addBookToLibrary(theHobbit);
+theHobbit.addBookToLibrary(swordPrincessAltina);
+theHobbit.addBookToLibrary(braveStory);
+theHobbit.addBookToLibrary(mistborne);
+theHobbit.addBookToLibrary(hikaruGaChikyuu);
 
 showDialogButton.addEventListener("click", (e) => {
     dialog.showModal();
@@ -37,7 +47,7 @@ addBookButton.addEventListener("click", (e) => {
     const readStatus = document.querySelector("#readStatus").checked;
 
     const newBook = new Book(title, author, pageCount, readStatus);
-    addBookToLibrary(newBook);
+    theHobbit.addBookToLibrary(newBook);
 })
 
 
@@ -49,14 +59,14 @@ addBookButton.addEventListener("click", (e) => {
         this.readStatus = readStatus ? "Read" : "Unread";
 }*/
 
-Book.prototype.toggleReadStatus = function () {
+/*Book.prototype.toggleReadStatus = function () {
     this.readStatus == "Read" ? this.readStatus = "Unread" : this.readStatus = "Read";
-}
+}*/
 
-function addBookToLibrary(book) {
+/*function addBookToLibrary(book) {
     myLibrary.push(book);
     displayBooks(myLibrary);
-}
+}*/
 
 function displayBooks(array) {
 
