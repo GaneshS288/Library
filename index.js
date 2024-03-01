@@ -5,6 +5,15 @@ const mainSection = document.querySelector("main");
 
 const myLibrary = [];
 
+class Book {
+    constructor(title, author, pageCount, readStatus) {
+            this.title = title,
+            this.author = author,
+            this.pageCount = pageCount,
+            this.readStatus = readStatus ? "Read" : "Unread";
+    }
+}
+
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 269, true);
 const swordPrincessAltina = new Book("Sword Princess Altina", "Yukiya Murasaki", 2000, true);
 const braveStory = new Book("Brave Story", "Miyuki Miyabe", 280, false);
@@ -31,12 +40,14 @@ addBookButton.addEventListener("click", (e) => {
     addBookToLibrary(newBook);
 })
 
-function Book(title, author, pageCount, readStatus) {
-    this.title = title,
+
+
+/*function Book(title, author, pageCount, readStatus) {
+        this.title = title,
         this.author = author,
         this.pageCount = pageCount,
         this.readStatus = readStatus ? "Read" : "Unread";
-}
+}*/
 
 Book.prototype.toggleReadStatus = function () {
     this.readStatus == "Read" ? this.readStatus = "Unread" : this.readStatus = "Read";
@@ -91,9 +102,9 @@ function displayBooks(array) {
                     div.appendChild(toggleReadStatus);
 
                     toggleReadStatus.addEventListener("click", (event) => {
-                    const index = event.target.parentElement.parentElement.getAttribute("data-index");
-                    myLibrary[parseInt(index)].toggleReadStatus();
-                    displayBooks(myLibrary);
+                        const index = event.target.parentElement.parentElement.getAttribute("data-index");
+                        myLibrary[parseInt(index)].toggleReadStatus();
+                        displayBooks(myLibrary);
                     })
             }
         }
