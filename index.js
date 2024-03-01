@@ -16,7 +16,7 @@ class Book {
 
     addBookToLibrary(book) {
         myLibrary.push(book);
-        displayBooks(myLibrary);
+        this.displayBooks(myLibrary);
     }
     
     toggleReadStatus () {
@@ -27,8 +27,70 @@ class Book {
         const index = event.target.parentElement.getAttribute("data-index");
         myLibrary.splice(parseInt(index), 1);
         event.target.parentElement.remove();
-        displayBooks(myLibrary);
+        theHobbit.displayBooks(myLibrary);
     }
+
+
+    displayBooks(array) {
+
+        const previousBookCards = document.querySelectorAll(".bookCard");
+        previousBookCards.forEach((e) => e.remove());
+    
+        array.forEach((element, index) => {
+            const bookCard = document.createElement("div");
+            bookCard.classList.add("bookCard");
+    
+            for (let i = 0; i < 4; i++) {
+                const div = document.createElement("div");
+                bookCard.appendChild(div);
+                bookCard.setAttribute("data-index", `${index}`)
+    
+                const heading = document.createElement("h3");
+                const content = document.createElement("p");
+                div.appendChild(heading);
+                div.appendChild(content);
+    
+                switch (i) {
+                    case 0:
+                        heading.textContent = "Title:";
+                        content.textContent = element.title;
+                        break;
+    
+                    case 1:
+                        heading.textContent = "Author:";
+                        content.textContent = element.author;
+                        break;
+    
+                    case 2:
+                        heading.textContent = "Pages:";
+                        content.textContent = element.pageCount;
+                        break;
+    
+                    case 3:
+                        heading.textContent = "Read:";
+                        content.textContent = element.readStatus;
+    
+                        const toggleReadStatus = document.createElement("button");
+                        toggleReadStatus.textContent = "Toggle";
+                        div.appendChild(toggleReadStatus);
+    
+                        toggleReadStatus.addEventListener("click", (event) => {
+                            const index = event.target.parentElement.parentElement.getAttribute("data-index");
+                            myLibrary[parseInt(index)].toggleReadStatus();
+                            this.displayBooks(myLibrary);
+                        })
+                }
+            }
+    
+            const deleteButton = document.createElement("button");
+            deleteButton.addEventListener("click", theHobbit.deleteBook)
+            deleteButton.textContent = "Delete";
+            bookCard.appendChild(deleteButton);
+    
+            mainSection.appendChild(bookCard);
+        });
+    }
+    
 }
 
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 269, true);
@@ -57,89 +119,4 @@ addBookButton.addEventListener("click", (e) => {
     theHobbit.addBookToLibrary(newBook);
 })
 
-
-
-/*function Book(title, author, pageCount, readStatus) {
-        this.title = title,
-        this.author = author,
-        this.pageCount = pageCount,
-        this.readStatus = readStatus ? "Read" : "Unread";
-}*/
-
-/*Book.prototype.toggleReadStatus = function () {
-    this.readStatus == "Read" ? this.readStatus = "Unread" : this.readStatus = "Read";
-}*/
-
-/*function addBookToLibrary(book) {
-    myLibrary.push(book);
-    displayBooks(myLibrary);
-}*/
-
-function displayBooks(array) {
-
-    const previousBookCards = document.querySelectorAll(".bookCard");
-    previousBookCards.forEach((e) => e.remove());
-
-    array.forEach((element, index) => {
-        const bookCard = document.createElement("div");
-        bookCard.classList.add("bookCard");
-
-        for (let i = 0; i < 4; i++) {
-            const div = document.createElement("div");
-            bookCard.appendChild(div);
-            bookCard.setAttribute("data-index", `${index}`)
-
-            const heading = document.createElement("h3");
-            const content = document.createElement("p");
-            div.appendChild(heading);
-            div.appendChild(content);
-
-            switch (i) {
-                case 0:
-                    heading.textContent = "Title:";
-                    content.textContent = element.title;
-                    break;
-
-                case 1:
-                    heading.textContent = "Author:";
-                    content.textContent = element.author;
-                    break;
-
-                case 2:
-                    heading.textContent = "Pages:";
-                    content.textContent = element.pageCount;
-                    break;
-
-                case 3:
-                    heading.textContent = "Read:";
-                    content.textContent = element.readStatus;
-
-                    const toggleReadStatus = document.createElement("button");
-                    toggleReadStatus.textContent = "Toggle";
-                    div.appendChild(toggleReadStatus);
-
-                    toggleReadStatus.addEventListener("click", (event) => {
-                        const index = event.target.parentElement.parentElement.getAttribute("data-index");
-                        myLibrary[parseInt(index)].toggleReadStatus();
-                        displayBooks(myLibrary);
-                    })
-            }
-        }
-
-        const deleteButton = document.createElement("button");
-        deleteButton.addEventListener("click", theHobbit.deleteBook)
-        deleteButton.textContent = "Delete";
-        bookCard.appendChild(deleteButton);
-
-        mainSection.appendChild(bookCard);
-    });
-}
-
-/*function deleteBook(event) {
-    const index = event.target.parentElement.getAttribute("data-index");
-    myLibrary.splice(parseInt(index), 1);
-    event.target.parentElement.remove();
-    displayBooks(myLibrary);
-}*/
-
-displayBooks(myLibrary);
+theHobbit.displayBooks(myLibrary);
